@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "n1-translator"
+version = "1.0.0"
+description = "Real-time Japanese→Spanish translator overlay — monitors clipboard, translates via Google Translate, displays in a frameless blur HUD."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "kurojs", email = "kuro@kuro.com" },
+]
+requires-python = ">=3.12"
+dependencies = [
+    "PySide6>=6.6.0",
+    "deep-translator>=1.11.0",
+]
+keywords = ["japanese", "translator", "overlay", "clipboard", "pyside6"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: X11 Applications :: Qt",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Desktop Environment",
+    "Topic :: Text Processing :: Linguistic",
+]
+
+[project.urls]
+Homepage = "https://github.com/kurojs/n1-translator"
+Repository = "https://github.com/kurojs/n1-translator"
+Issues = "https://github.com/kurojs/n1-translator/issues"
+
+[project.scripts]
+n1-translator = "n1_translator.__main__:run_app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["n1_translator*"]
