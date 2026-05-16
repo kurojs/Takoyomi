@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=75.0"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "n1-translator"
@@ -35,7 +35,7 @@ Repository = "https://github.com/kurojs/n1-translator"
 Issues = "https://github.com/kurojs/n1-translator/issues"
 
 [project.scripts]
-n1-translator = "n1_translator.__main__:run_app"
+n1-translator = "n1_translator.app:run_app"
 
 [tool.setuptools.packages.find]
 where = ["src"]
