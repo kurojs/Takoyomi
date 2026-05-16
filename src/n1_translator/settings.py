@@ -50,10 +50,14 @@ class AppSettings:
 
     def load(self):
         for k, v in DEFAULTS.items():
-            setattr(self, k, self._qs.value(k, v))
+            typed = self._qs.value(k, v, type=type(v))
+            setattr(self, k, typed)
+        # Ensure numeric types (QSettings may return int/str depending on backend)
         self.jp_size = int(self.jp_size)
         self.es_size = int(self.es_size)
         self.width   = int(self.width)
+        self.pet_enabled = bool(self.pet_enabled)
+        self.width_custom = bool(self.width_custom)
 
     def save(self):
         for k in DEFAULTS:
