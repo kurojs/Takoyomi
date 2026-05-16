@@ -80,13 +80,13 @@ class LoadingLine(QWidget):
             grad.setColorAt(min(1.0, p + 0.08), QColor(a.red(), a.green(), a.blue(), 25))
             grad.setColorAt(1.0,                QColor(a.red(), a.green(), a.blue(), 25))
         else:
-            # Subtle moving bright spot on idle
+            # Moving bright spot on a visible line
             grad = QLinearGradient(0, 0, w, 0)
-            grad.setColorAt(0.0,                QColor(a.red(), a.green(), a.blue(), 12))
-            grad.setColorAt(max(0.0, p - 0.03), QColor(a.red(), a.green(), a.blue(), 12))
-            grad.setColorAt(p,                  QColor(a.red(), a.green(), a.blue(), 90))
-            grad.setColorAt(min(1.0, p + 0.03), QColor(a.red(), a.green(), a.blue(), 12))
-            grad.setColorAt(1.0,                QColor(a.red(), a.green(), a.blue(), 12))
+            grad.setColorAt(0.0,                QColor(a.red(), a.green(), a.blue(), 55))
+            grad.setColorAt(max(0.0, p - 0.04), QColor(a.red(), a.green(), a.blue(), 55))
+            grad.setColorAt(p,                  QColor(a.red(), a.green(), a.blue(), 190))
+            grad.setColorAt(min(1.0, p + 0.04), QColor(a.red(), a.green(), a.blue(), 55))
+            grad.setColorAt(1.0,                QColor(a.red(), a.green(), a.blue(), 55))
 
         painter.fillRect(self.rect(), grad)
 
