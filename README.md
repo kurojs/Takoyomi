@@ -4,7 +4,7 @@
 
 Monitors your clipboard for Japanese text, translates it via Google Translate, and displays the result in a frameless blur overlay — always visible, always on top. Designed for learners, readers, and anyone working with Japanese text.
 
-![screenshot](./assets/screenshot.png)
+<img src="./assets/n1-translator.png" alt="N1 Translator icon" width="64" align="right">
 
 ---
 
@@ -53,6 +53,16 @@ pip install -r requirements.txt
 # Or run directly
 python -m n1_translator
 ```
+
+### KDE Application Launcher
+
+To launch N1 Translator from KDE's app menu (Kickoff):
+
+```bash
+cp assets/n1-translator.desktop ~/.local/share/applications/
+```
+
+Then search for **"N1 Translator"** in your app launcher. The repository also ships a 64×64 purple icon at `assets/n1-translator.png`.
 
 ---
 
@@ -109,9 +119,12 @@ n1-translator/
 ├── README.md
 ├── LICENSE
 ├── requirements.txt            # pip dependencies
-├── start.sh                    # Legacy launcher
+├── assets/
+│   ├── n1-translator.desktop   # KDE application launcher
+│   └── n1-translator.png       # 64×64 app icon (purple)
 ├── scripts/
 │   └── start.sh                # Production launcher (detached)
+├── start.sh                    # Legacy — delegates to scripts/
 └── src/
     └── n1_translator/
         ├── __init__.py
