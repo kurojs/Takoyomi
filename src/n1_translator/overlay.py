@@ -136,7 +136,6 @@ class TranslatorPopup(QWidget):
         self.setAttribute(Qt.WA_ShowWithoutActivating)
         self.setAttribute(Qt.WA_DeleteOnClose, False)
         self.setMinimumHeight(60)
-        self.setMaximumHeight(600)
 
     # ── UI ────────────────────────────────────
 
@@ -373,10 +372,31 @@ class TranslatorPopup(QWidget):
         self.loading_line.stop_loading()
         self._resize_to_content()
 
-    # ── Auto-expand ──────────────────────────
+    # ── Auto-expand (word-wrap friendly) ─────
 
     def _resize_to_content(self):
-        self.adjustSize()
+        margins = self._outer.contentsMargins()
+        spacing = self._outer.spacing()
+        avail_w = self.width() - margins.left() - margins.right()
+
+        jp_h = self.jp_label.heightForWidth(avail_w)
+        es_h = self.es_label.heightForWidth(avail_w)
+
+        h = (margins.top()
+             + self._outer.itemAt(0).sizeHint().height()
+             + spacing
+             + max(jp_h, 18)  # min 18px (1 line)
+             + spacing
+             + 2  # loading line
+             + spacing
+             + max(es_h, 18)
+             + margins.bottom())
+
+        screen = QApplication.primaryScreen()
+        if screen:
+            h = min(h, screen.availableGeometry().height() - 40)
+
+        self.setFixedHeight(max(60, h))
         self.move_to_position()
 
     # ── Posición ──────────────────────────────

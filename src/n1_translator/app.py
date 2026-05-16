@@ -77,32 +77,83 @@ class TranslatorApp:
         # Bandeja
         self._setup_tray()
 
-        # Portapapeles
-        self._poll_timer = QTimer()
-        self._poll_timer.timeout.connect(self._wl_poll)
-        self._poll_timer.start(200)
-
         # Arranque
         self._overlay.show_idle()
         self._overlay.show_overlay()
 
         signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-    # ── wl-paste ──────────────────────────────
+        # Portapapeles (Klipper DBus + wl-paste fallback)
+        self._polling = False
+        self._klipper = None  # lazy: se conecta al primer poll
+        self._wl_poll()
+
+    # ── Clipboard (Klipper + wl-paste) ────────
 
     def _wl_poll(self):
-        if not self._enabled:
+        """Lee PRIMARY vía Klipper (~0ms). wl-paste como fallback si Klipper vacío."""
+        if self._polling or not self._enabled:
+            QTimer.singleShot(300, self._wl_poll)
             return
+
+        self._polling = True
+
+        # Klipper DBus (instantáneo) + wl-paste fallback (PRIMARY + CLIPBOARD)
+        text = self._klipper_text()
+        if not text:
+            text = self._read_wl_paste()
+
+        log.debug(f"clip: {text[:40]!r} (last={self._last_text[:40]!r})")
+
+        if text and text != self._last_text:
+            self._process_text(text)
+
+        self._polling = False
+        QTimer.singleShot(300, self._wl_poll)
+
+    # ── Klipper DBus (KDE nativo, instantáneo) ─
+
+    def _klipper_text(self) -> str:
+        """Lee clipboard desde Klipper vía DBus directo (sin subprocess)."""
+        if self._klipper is None:
+            try:
+                import dbus
+                bus = dbus.SessionBus()
+                self._klipper = bus.get_object(
+                    'org.kde.klipper', '/klipper'
+                )
+            except Exception:
+                self._klipper = False  # marca para no reintentar
+        if not self._klipper:
+            return ""
         try:
-            proc = QProcess()
-            proc.start("wl-paste", ["--type", "text/plain"])
-            if proc.waitForFinished(50):
-                raw = proc.readAllStandardOutput()
-                text = bytes(raw).decode("utf-8", errors="replace").strip()
-                if text and text != self._last_text:
-                    self._process_text(text)
-        except Exception as exc:
-            log.debug(f"wl-paste: {exc}")
+            text = self._klipper.getClipboardContents(
+                dbus_interface='org.kde.klipper.klipper'
+            )
+            return str(text) if text else ""
+        except Exception:
+            return ""
+
+    # ── wl-paste (fallback) ──────────────────
+
+    def _read_wl_paste(self) -> str:
+        """Lee CLIPBOARD + PRIMARY con wl-paste. Fallback si Klipper vacío."""
+        for _, args in (
+            ("clip",   ["--type", "text/plain"]),
+            ("auto",   []),
+            ("select", ["--primary"]),
+        ):
+            try:
+                proc = QProcess()
+                proc.start("wl-paste", args)
+                if proc.waitForFinished(300):
+                    raw = proc.readAllStandardOutput()
+                    t = bytes(raw).decode("utf-8", errors="replace").strip()
+                    if t:
+                        return t
+            except Exception:
+                pass
+        return ""
 
     # ── Bandeja ───────────────────────────────
 
