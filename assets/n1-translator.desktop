@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=N1 Translator
+Name[es]=N1 Traductor
+Comment=Real-time Japanese→Spanish overlay translator
+Comment[es]=Traductor japonés→español en tiempo real sobre el escritorio
+Categories=Utility;TextTools;
+Exec=/home/kuro/Desktop/Work/n1-translator/scripts/start.sh
+Icon=/home/kuro/Desktop/Work/n1-translator/assets/n1-translator.png
+Terminal=false
+StartupNotify=false
+StartupWMClass=n1-translator
+

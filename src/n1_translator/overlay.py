@@ -121,7 +121,7 @@ class TranslatorPopup(QWidget):
         self.setWindowFlags(
             Qt.FramelessWindowHint
             | Qt.WindowStaysOnTopHint
-            | Qt.Tool
+            | Qt.SubWindow          # ← no taskbar entry on KDE
         )
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setAttribute(Qt.WA_ShowWithoutActivating)
@@ -180,11 +180,14 @@ class TranslatorPopup(QWidget):
         self._reposition_pet()
 
     def _reposition_pet(self):
-        """Coloca el pet_label en la esquina derecha del contenido."""
-        if self._pet_label.isVisible():
-            x = self.width() - 22 - 80  # 22px margen derecho + 80px pet
-            y = max(50, (self.height() - 80) // 2)
-            self._pet_label.move(x, y)
+        """Place pet_label on the right side of the content area."""
+        if not self._pet_label.isVisible():
+            return
+        # Use the outer layout's content rect to find the right edge
+        cr = self.contentsRect()
+        x = cr.right() - 80 - 22   # 22px from right edge of widget
+        y = max(50, (self.height() - 80) // 2)
+        self._pet_label.move(x, y)
 
     def _apply_settings_to_ui(self):
         """Refleja el AppSettings actual en los widgets."""
@@ -260,6 +263,7 @@ class TranslatorPopup(QWidget):
         self._pet_movie.setScaledSize(self._pet_label.size())
         self._pet_label.setMovie(self._pet_movie)
         self._pet_movie.start()
+        self._reposition_pet()  # ensure position is correct after setting content
 
     # ── Animaciones ───────────────────────────
 

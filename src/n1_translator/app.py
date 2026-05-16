@@ -39,6 +39,8 @@ class TranslatorApp:
         self._app = QApplication(sys.argv)
         self._app.setApplicationName("N1 Translator")
         self._app.setOrganizationName("n1-tools")
+        self._app.setApplicationDisplayName("N1 Translator")
+        self._app.setDesktopFileName("n1-translator")
         self._app.setQuitOnLastWindowClosed(False)
 
         # Settings persistentes
