@@ -32,6 +32,8 @@ except ImportError:
 # ─────────────────────────────────────────────
 
 class LoadingLine(QWidget):
+    """A 2-pixel line with a moving bright spot — subtle idle glow, pronounced sweep on translate."""
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setFixedHeight(2)
@@ -40,21 +42,19 @@ class LoadingLine(QWidget):
         self._timer = QTimer()
         self._timer.timeout.connect(self._tick)
         self._accent = QColor(34, 197, 94)
+        self._timer.start(16)  # always running for idle shine
 
     def set_accent(self, color: QColor):
         self._accent = color
-        if not self._active:
-            self.update()
+        self.update()
 
     def start_loading(self):
         self._active = True
         self._progress = 0.0
-        self._timer.start(16)
         self.show()
 
     def stop_loading(self):
         self._active = False
-        self._timer.stop()
         self._progress = 0.0
         self.update()
 
@@ -68,20 +68,27 @@ class LoadingLine(QWidget):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         w = self.width()
+        p = self._progress
+        a = self._accent
 
         if self._active:
+            # Pronounced sweep during translation
             grad = QLinearGradient(0, 0, w, 0)
-            p = self._progress
-            a = self._accent
-            grad.setColorAt(0.0,                  QColor(a.red(), a.green(), a.blue(), 25))
-            grad.setColorAt(max(0.0, p - 0.08),   QColor(a.red(), a.green(), a.blue(), 25))
-            grad.setColorAt(p,                    QColor(a.red(), a.green(), a.blue(), 220))
-            grad.setColorAt(min(1.0, p + 0.08),   QColor(a.red(), a.green(), a.blue(), 25))
-            grad.setColorAt(1.0,                  QColor(a.red(), a.green(), a.blue(), 25))
-            painter.fillRect(self.rect(), grad)
+            grad.setColorAt(0.0,                QColor(a.red(), a.green(), a.blue(), 25))
+            grad.setColorAt(max(0.0, p - 0.08), QColor(a.red(), a.green(), a.blue(), 25))
+            grad.setColorAt(p,                  QColor(a.red(), a.green(), a.blue(), 220))
+            grad.setColorAt(min(1.0, p + 0.08), QColor(a.red(), a.green(), a.blue(), 25))
+            grad.setColorAt(1.0,                QColor(a.red(), a.green(), a.blue(), 25))
         else:
-            a = self._accent
-            painter.fillRect(self.rect(), QColor(a.red(), a.green(), a.blue(), 45))
+            # Subtle moving bright spot on idle
+            grad = QLinearGradient(0, 0, w, 0)
+            grad.setColorAt(0.0,                QColor(a.red(), a.green(), a.blue(), 12))
+            grad.setColorAt(max(0.0, p - 0.03), QColor(a.red(), a.green(), a.blue(), 12))
+            grad.setColorAt(p,                  QColor(a.red(), a.green(), a.blue(), 90))
+            grad.setColorAt(min(1.0, p + 0.03), QColor(a.red(), a.green(), a.blue(), 12))
+            grad.setColorAt(1.0,                QColor(a.red(), a.green(), a.blue(), 12))
+
+        painter.fillRect(self.rect(), grad)
 
 
 # ─────────────────────────────────────────────
