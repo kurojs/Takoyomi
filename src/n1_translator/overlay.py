@@ -109,6 +109,8 @@ class TranslatorPopup(QWidget):
         self._pet_movie = None
         self._pet_path = ""
         self._last_pet_url = ""
+        self._bg_color = QColor(8, 8, 14)
+        self._bg_opacity = 215
 
         self._setup_window()
         self._setup_ui()
@@ -224,6 +226,10 @@ class TranslatorPopup(QWidget):
         # Línea
         self.loading_line.set_accent(a)
 
+        # Fondo
+        self._bg_color = QColor(s.bg_color)
+        self._bg_opacity = int(s.bg_opacity)
+
         # Pet
         if s.pet_enabled and s.pet_url:
             self._pet_label.show()
@@ -311,7 +317,9 @@ class TranslatorPopup(QWidget):
         r = self.rect().adjusted(1, 1, -1, -1)
         path = QPainterPath()
         path.addRoundedRect(QRectF(r), 14, 14)
-        painter.setBrush(QColor(8, 8, 14, 215))
+        bg = QColor(self._bg_color)
+        bg.setAlpha(self._bg_opacity)
+        painter.setBrush(bg)
         a = self._acc
         painter.setPen(QPen(QColor(a.red(), a.green(), a.blue(), 35), 1))
         painter.drawPath(path)

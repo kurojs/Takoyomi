@@ -99,7 +99,9 @@ Then search for **"N1 Translator"** in your app launcher. The repository also sh
 
 | Setting | Default | Description |
 |---|---|---|
-| **Accent colour** | `#22c55e` (green) | 7 presets + custom colour picker |
+| **Accent colour** | `#22c55e` (green) | 7 presets + custom colour picker (🎨) |
+| **Background colour** | `#08080e` (carbon) | 7 presets + custom colour picker (🎨) |
+| **Background opacity** | 215 / 255 | Slider from 30 (ghost-like) to 255 (fully opaque) |
 | **Japanese font** | Noto Sans CJK JP | Any installed font |
 | **Japanese font size** | 11 pt | 8–32 range |
 | **Spanish font** | sans-serif | Any installed font |
