@@ -115,8 +115,6 @@ STRINGS: dict[str, dict[str, str]] = {
         "test_es_src": "Estoy aprendiendo japonés",
         "test_ok": "Traducción de prueba ok",
     },
-}
-
     "ja": {
         "app_title": "タコヨミ",
         "app_display": "タコヨミ — 日本語翻訳",
@@ -175,6 +173,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "test_es_src": "日本語学習中です",
         "test_ok": "テスト翻訳OK",
     },
+}
 UI_LANGUAGES: list[tuple[str, str]] = [
     ("en", "English"),
     ("es", "Español"),
