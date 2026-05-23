@@ -5,7 +5,10 @@
 Monitors your clipboard for Japanese text, translates it via Google Translate, and displays the result in a frameless blur overlay — always visible, always on top. Supports bidirectional translation: Japanese to your language, or your language to Japanese.
 
 ![Overlay](https://i.imgur.com/ZlT3xQ8.png)
+*Overlay showing original Japanese text and its translation*
+
 ![Settings](https://i.imgur.com/DuXk5V8.png)
+*Settings dialog with language, font, accent, and appearance configuration*
 
 ---
 
