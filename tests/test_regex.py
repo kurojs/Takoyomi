@@ -1,6 +1,6 @@
 import re
 
-from n1_translator.app import RE_JAPANESE, RE_SPANISH
+from takoyomi.app import RE_JAPANESE, RE_SPANISH
 
 
 class TestJapaneseDetection:
@@ -56,8 +56,6 @@ class TestSpanishDetection:
 
 
 class TestBidirectionalDetection:
-    """Japanese and Spanish text should BOTH match their respective patterns."""
-
     def test_jp_and_es_combined(self):
         text = "日本語 español"
         assert RE_JAPANESE.search(text)

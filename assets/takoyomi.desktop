@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Takoyomi
+Name[es]=Takoyomi
+Comment=Real-time Japanese overlay translator
+Comment[es]=Traductor japonés en tiempo real
+Categories=Utility;TextTools;
+Exec=takoyomi
+Icon=takoyomi
+Terminal=false
+StartupNotify=false
+StartupWMClass=takoyomi

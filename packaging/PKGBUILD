@@ -1,12 +1,11 @@
 # Maintainer: kurojs <kuro@kurojs.dev>
-# Contributor: kurojs <kuro@kurojs.dev>
 
-pkgname=n1-translator
+pkgname=takoyomi
 pkgver=1.0.0
 pkgrel=1
-pkgdesc="Real-time Japanese->Spanish overlay translator for KDE Plasma"
+pkgdesc="Real-time Japanese overlay translator for KDE Plasma"
 arch=('any')
-url="https://github.com/kurojs/n1-translator"
+url="https://github.com/kurojs/takoyomi"
 license=('MIT')
 depends=(
     'pyside6'
@@ -34,8 +33,8 @@ package() {
 
     pip install --root="$pkgdir" --prefix=/usr --no-deps deep-translator
 
-    install -Dm644 assets/n1-translator.desktop \
-        "$pkgdir/usr/share/applications/n1-translator.desktop"
-    install -Dm644 assets/n1-translator.png \
-        "$pkgdir/usr/share/pixmaps/n1-translator.png"
+    install -Dm644 assets/takoyomi.desktop \
+        "$pkgdir/usr/share/applications/takoyomi.desktop"
+    install -Dm644 assets/takoyomi.png \
+        "$pkgdir/usr/share/pixmaps/takoyomi.png"
 }
