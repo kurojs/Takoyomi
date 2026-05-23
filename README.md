@@ -4,12 +4,6 @@
 
 Monitors your clipboard for Japanese text, translates it via Google Translate, and displays the result in a frameless blur overlay — always visible, always on top. Supports bidirectional translation: Japanese to your language, or your language to Japanese.
 
-![Overlay](https://i.imgur.com/ZlT3xQ8.png)
-*Overlay showing original Japanese text and its translation*
-
-![Settings](https://i.imgur.com/DuXk5V8.png)
-*Settings dialog with language, font, accent, and appearance configuration*
-
 ---
 
 ## Features
@@ -72,6 +66,10 @@ Then search for **"Takoyomi"** in your app launcher.
 
 ### Overlay
 
+![Overlay](https://i.imgur.com/ZlT3xQ8.png)
+
+The overlay showing detected Japanese text and its translation
+
 | Action | Result |
 |---|---|
 | Select Japanese text anywhere | The overlay shows the original + translation |
@@ -94,6 +92,10 @@ Then search for **"Takoyomi"** in your app launcher.
 | Left-click tray icon | Show / hide the overlay |
 
 ### Settings
+
+![Settings](https://i.imgur.com/DuXk5V8.png)
+
+Settings dialog with language, font, accent, and appearance configuration
 
 Configure accent colour, background colour and opacity, fonts, UI language, target translation language, custom window width, and pet GIF via the Settings dialog.
 
