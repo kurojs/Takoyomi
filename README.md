@@ -1,8 +1,11 @@
-# Takoyomi
+# 🟣 Takoyomi
 
 **Real-time Japanese overlay translator** for Linux (KDE Plasma / Wayland).
 
 Monitors your clipboard for Japanese text, translates it via Google Translate, and displays the result in a frameless blur overlay — always visible, always on top. Supports bidirectional translation: Japanese to your language, or your language to Japanese.
+
+![Overlay](https://i.imgur.com/ZlT3xQ8.png)
+![Settings](https://i.imgur.com/DuXk5V8.png)
 
 ---
 

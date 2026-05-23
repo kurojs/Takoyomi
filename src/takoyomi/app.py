@@ -151,7 +151,11 @@ class TranslatorApp:
         dialog.exec()
 
     def _on_settings_applied(self):
+        old = self._settings.target_language
         self._settings.load()
+        if self._settings.target_language != old:
+            self._cache.clear()
+            log.info("cache cleared — target language changed")
         self._overlay.update_settings(self._settings)
         self._init_translators()
         ui = self._settings.ui_language

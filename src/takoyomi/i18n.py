@@ -117,9 +117,68 @@ STRINGS: dict[str, dict[str, str]] = {
     },
 }
 
+    "ja": {
+        "app_title": "タコヨミ",
+        "app_display": "タコヨミ — 日本語翻訳",
+        "desktop_name": "Takoyomi",
+        "desktop_comment": "リアルタイム日本語翻訳オーバーレイ",
+
+        "status_idle": "待機中...",
+        "status_translating": "翻訳中...",
+        "status_done": "翻訳完了",
+        "status_error": "エラー",
+
+        "tray_idle": "タコヨミ ● 待機中",
+        "tray_paused": "タコヨミ ● 一時停止中",
+        "tray_result": "タコヨミ ● {source}… → {result}…",
+
+        "settings_title": "設定 — タコヨミ",
+        "section_accent": "アクセントカラー",
+        "section_background": "背景",
+        "section_fonts": "フォント",
+        "section_language": "言語",
+        "section_pet": "ペット",
+        "section_width": "ウィンドウ幅",
+
+        "jp_font": "日本語フォント:",
+        "jp_size": "日本語サイズ:",
+        "trans_font": "翻訳フォント:",
+        "trans_size": "翻訳サイズ:",
+        "target_lang": "翻訳先言語:",
+        "ui_lang": "UI言語:",
+        "opacity": "透明度:",
+        "url": "URL:",
+        "px": " px",
+        "custom_width": "カスタム幅",
+
+        "pet_check": "ペット — 右側にアニメーションGIFを表示",
+        "pet_placeholder": "https://media1.giphy.com/media/.../giphy.gif",
+
+        "reset": "初期設定に戻す",
+        "cancel": "キャンセル",
+        "apply": "適用",
+        "custom_color": "カスタムカラーを選択...",
+        "accent_picker": "アクセントカラーを選択",
+        "bg_picker": "背景色を選択",
+
+        "menu_settings": "設定",
+        "menu_test": "テスト: keep studying",
+        "menu_test_ja": "テスト: keep studying",
+        "menu_test_es": "テスト: 日本語学習中です",
+        "menu_toggle": "一時停止 / 再開",
+        "menu_quit": "終了",
+
+        "not_installed": "deep-translatorがインストールされていません",
+        "settings_applied": "設定を適用しました",
+        "no_result": "結果なし",
+        "test_ja_src": "keep studying",
+        "test_es_src": "日本語学習中です",
+        "test_ok": "テスト翻訳OK",
+    },
 UI_LANGUAGES: list[tuple[str, str]] = [
     ("en", "English"),
     ("es", "Español"),
+    ("ja", "日本語"),
 ]
 
 TARGET_LANGUAGES: list[tuple[str, str]] = [
