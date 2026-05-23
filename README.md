@@ -34,6 +34,16 @@ Monitors your clipboard for Japanese text, translates it via Google Translate, a
 
 ## Quick Start
 
+### Arch Linux (AUR)
+
+```bash
+yay -S takoyomi
+```
+
+Then search for **"Takoyomi"** in your app launcher.
+
+### Manual install
+
 ```bash
 # Clone the repository
 git clone https://github.com/kurojs/takoyomi.git
