@@ -153,8 +153,6 @@ class SettingsDialog(QDialog):
 
         # --- Fuentes ---
         self._jp_font_combo = QFontComboBox()
-        self._jp_font_combo.setFontFilters(QFontComboBox.FontFilter.MonospacedFonts)
-        # Queremos TODAS las fuentes, no solo mono
         self._jp_font_combo.setFontFilters(QFontComboBox.FontFilter.AllFonts)
         self._jp_size_spin = QSpinBox()
         self._jp_size_spin.setRange(8, 32)

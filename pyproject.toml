@@ -5,11 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "n1-translator"
 version = "1.0.0"
+
 description = "Real-time Japanese→Spanish translator overlay — monitors clipboard, translates via Google Translate, displays in a frameless blur HUD."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "kurojs", email = "kuro@kuro.com" },
+    { name = "kurojs", email = "kuro@kurojs.dev" },
 ]
 requires-python = ">=3.12"
 dependencies = [
@@ -18,7 +19,7 @@ dependencies = [
 ]
 keywords = ["japanese", "translator", "overlay", "clipboard", "pyside6"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: X11 Applications :: Qt",
     "Intended Audience :: End Users/Desktop",
     "License :: OSI Approved :: MIT License",
@@ -27,6 +28,12 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Topic :: Desktop Environment",
     "Topic :: Text Processing :: Linguistic",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+    "pytest-mock>=3.0",
 ]
 
 [project.urls]

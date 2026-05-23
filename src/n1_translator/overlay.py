@@ -17,16 +17,6 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
 
 from n1_translator.settings import AppSettings
 
-# ── ¿Soporta windowOpacity? ─────────────────
-
-_CAN_FADE: bool = False
-try:
-    from PySide6.QtX11Extras import QX11Info
-    _CAN_FADE = QX11Info.isPlatformX11()
-except ImportError:
-    pass
-
-
 # ─────────────────────────────────────────────
 #  LOADING LINE
 # ─────────────────────────────────────────────
@@ -122,8 +112,6 @@ class TranslatorPopup(QWidget):
         self._setup_window()
         self._setup_ui()
         self._setup_animations()
-        self._setup_blur()
-
     # ── Ventana ───────────────────────────────
 
     def _setup_window(self):
@@ -289,32 +277,6 @@ class TranslatorPopup(QWidget):
         self._pulse_anim.setEasingCurve(QEasingCurve.Type.InOutSine)
         self._pulse_anim.start()
 
-        if _CAN_FADE:
-            self._fade_anim = QPropertyAnimation(self, b"windowOpacity")
-            self._fade_anim.setDuration(180)
-            self._fade_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
-        else:
-            self._fade_anim = None
-
-    # ── Blur ─────────────────────────────────
-
-    def _setup_blur(self):
-        try:
-            from PySide6.QtX11Extras import QX11Info
-            if QX11Info.isPlatformX11():
-                import ctypes, ctypes.util
-                so = ctypes.util.find_library("xcb")
-                if so:
-                    xcb = ctypes.cdll.LoadLibrary(so)
-                    conn = xcb.xcb_connect(None, None)
-                    if conn:
-                        xcb.xcb_intern_atom(conn, 0,
-                            len(b"_KDE_NET_WM_BLUR_BEHIND_REGION"),
-                            b"_KDE_NET_WM_BLUR_BEHIND_REGION")
-                        xcb.xcb_disconnect(conn)
-        except Exception:
-            pass
-
     # ── Paint ────────────────────────────────
 
     def paintEvent(self, event):
@@ -414,35 +376,13 @@ class TranslatorPopup(QWidget):
 
     def show_overlay(self):
         self.move_to_position()
-        if self._fade_anim:
-            self._fade_anim.stop()
-            self._fade_anim.setDirection(QPropertyAnimation.Direction.Forward)
-            self._fade_anim.setStartValue(0.0)
-            self._fade_anim.setEndValue(1.0)
-            self._fade_anim.start()
-        else:
-            self.setWindowOpacity(1.0)
+        self.setWindowOpacity(1.0)
         if not self.isVisible():
             self.show()
             self.raise_()
 
     def hide_overlay(self):
-        if self._fade_anim:
-            self._fade_anim.stop()
-            self._fade_anim.finished.connect(
-                self._on_hide_done, Qt.ConnectionType.UniqueConnection
-            )
-            self._fade_anim.setDirection(QPropertyAnimation.Direction.Backward)
-            self._fade_anim.setStartValue(1.0)
-            self._fade_anim.setEndValue(0.0)
-            self._fade_anim.start()
-        else:
-            self.hide()
-
-    def _on_hide_done(self):
         self.hide()
-        if self._fade_anim:
-            self._fade_anim.setDirection(QPropertyAnimation.Direction.Forward)
 
     def mousePressEvent(self, event):
         # Click en la barra superior (puntito + estado) → menú

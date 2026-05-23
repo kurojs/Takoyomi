@@ -15,7 +15,7 @@ from n1_translator.overlay import TranslatorPopup
 from n1_translator.settings import AppSettings, SettingsDialog
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="[N1] %(message)s",
     stream=sys.stderr,
 )
