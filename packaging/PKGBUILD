@@ -32,7 +32,8 @@ package() {
     cd "${srcdir}/${_realname}-${pkgver}"
     python -m installer --destdir="$pkgdir" dist/*.whl
 
-    pip install --root="$pkgdir" --prefix=/usr --no-deps deep-translator
+    pip install --root="$pkgdir" --prefix=/usr --no-deps --no-input \
+        --root-user-action=ignore deep-translator
 
     install -Dm644 assets/takoyomi.desktop \
         "$pkgdir/usr/share/applications/takoyomi.desktop"
